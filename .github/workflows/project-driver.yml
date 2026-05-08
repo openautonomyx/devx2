@@ -1,0 +1,43 @@
+name: devx2 Project Driver
+
+on:
+  workflow_dispatch:
+    inputs:
+      task:
+        description: 'Task for the project driver agent'
+        required: true
+        default: 'Review project state and propose next implementation steps.'
+
+  issues:
+    types: [opened, edited, labeled]
+
+  pull_request:
+    types: [opened, synchronize, ready_for_review]
+
+jobs:
+  project-driver:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r agents/project_driver/requirements.txt
+
+      - name: Run project driver
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PROJECT_DRIVER_TASK: ${{ github.event.inputs.task || github.event.issue.title || github.event.pull_request.title }}
+        run: python agents/project_driver/agent.py
