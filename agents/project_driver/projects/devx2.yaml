@@ -1,0 +1,32 @@
+name: devx2
+category: composable cloud-native software delivery platform
+positioning: >
+  composable, self-hostable, cloud-native software delivery platform
+  built on CNCF technologies and delivered through an open-core model.
+
+architecture:
+  - kubernetes
+  - argo-cd
+  - tekton
+  - harbor
+  - backstage
+  - prometheus
+  - opentelemetry
+  - kyverno
+  - spiffe
+
+principles:
+  - composable
+  - gitops-first
+  - vendor-neutral
+  - self-hostable
+  - cncf-native
+  - open-core
+
+responsibilities:
+  - roadmap planning
+  - sprint planning
+  - architecture review
+  - implementation decomposition
+  - platform engineering guidance
+  - governance recommendations
