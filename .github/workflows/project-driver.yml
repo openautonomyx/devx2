@@ -39,5 +39,7 @@ jobs:
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_ISSUE_NUMBER: ${{ github.event.issue.number || github.event.pull_request.number }}
           PROJECT_DRIVER_TASK: ${{ github.event.inputs.task || github.event.issue.title || github.event.pull_request.title }}
         run: python agents/project_driver/agent.py
